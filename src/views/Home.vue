@@ -3,7 +3,7 @@
     <div>
       <img class="rounded" src="@/assets/images/profile.jpg" width="256" height="256" alt="" />
       <h1 class="title">Taliesin Millhouse</h1>
-      <h2 class="sub-title">Software Developer</h2>
+      <h2 class="subtitle">Software Developer</h2>
       <a class="icon" href="https://github.com/strongishllama" target="_blank" rel="noopener" aria-label="GitHub">
         <font-awesome-icon :icon="['fab', 'github']" size="2x" />
       </a>

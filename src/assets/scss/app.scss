@@ -8,44 +8,26 @@ $shark: hsl(215, 15%, 16%);
 $black: hsl(0, 0%, 0%);
 $white: hsl(0, 0%, 100%);
 $green-blue-crayola: hsl(207, 54%, 51%);
+$red-munsell: hsl(354, 81%, 56%);
+$jonquil: hsl(47, 95%, 52%);
 
 // Currently unused colors.
 $pine-green: hsl(172, 71%, 25%);
 $prussian-blue: hsl(203, 91%, 14%);
-$rosso-corsa: hsl(0, 100%, 41%);
-$selective-yellow: hsl(43, 100%, 52%);
+$danube: hsl(207, 54%, 61%);
 
 // Universal colors.
+$pimary: $green-blue-crayola;
+$warning: $jonquil;
+$danger: $red-munsell;
 $link-color: $green-blue-crayola;
-$link-color-hover: darken($color: $green-blue-crayola, $amount: 20%);
+$link-color-hover: darken($green-blue-crayola, 20%);
 
 // Dark theme colors.
 $background-color-dark: $shark;
-$text-color-dark: $cadet-blue;
 
 // Light theme colors.
 $background-color-light: $white;
-$text-color-light: $black;
-
-// Component specific classes.
-.nav {
-  padding: 30px;
-  text-align: center;
-
-  a {
-    font-weight: bold;
-    font-size: 1.5rem;
-    margin: 0.5rem;
-
-    &.router-link-exact-active {
-      color: $link-color;
-
-      &:hover {
-        color: $link-color-hover;
-      }
-    }
-  }
-}
 
 // Tag specific classes.
 a {
@@ -61,6 +43,26 @@ a {
   }
 }
 
+button {
+  background-color: $pimary;
+  border: none;
+  border-radius: 2px;
+  margin: 0.5rem;
+  padding: 0.5rem;
+
+  @media (prefers-color-scheme: light) {
+    color: $white;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    color: $white;
+  }
+
+  &:hover {
+    background-color: darken($pimary, 10%);
+  }
+}
+
 html {
   font-family: Roboto, Avenir, Helvetica, Arial;
   -webkit-font-smoothing: antialiased;
@@ -68,12 +70,12 @@ html {
 
   @media (prefers-color-scheme: light) {
     background-color: $background-color-light;
-    color: $text-color-light;
+    color: $black;
   }
 
   @media (prefers-color-scheme: dark) {
     background-color: $background-color-dark;
-    color: $text-color-dark;
+    color: $cadet-blue;
   }
 }
 
@@ -104,6 +106,39 @@ ul {
   &.none {
     list-style-type: none;
     padding: 0;
+  }
+}
+
+// Component specific classes.
+.footer {
+  min-height: 5rem;
+  padding: 0.2rem;
+
+  @media (prefers-color-scheme: light) {
+    background-color: darken($background-color-light, 3%);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: darken($background-color-dark, 4%);
+  }
+}
+
+.nav {
+  padding: 30px;
+  text-align: center;
+
+  a {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin: 0.5rem;
+
+    &.router-link-exact-active {
+      color: $link-color;
+
+      &:hover {
+        color: $link-color-hover;
+      }
+    }
   }
 }
 
@@ -142,19 +177,16 @@ ul {
   text-align: center;
 }
 
-.title {
-  font-size: 2rem;
-  text-align: center;
-}
-
-.title-left {
-  font-size: 2rem;
+.text-left {
   text-align: left;
 }
 
-.sub-title {
-  margin-top: -1.5rem;
-  text-align: center;
+.title {
+  font-size: 2rem;
+}
+
+.subtitle {
+  margin-top: -1rem;
 }
 
 .post {
