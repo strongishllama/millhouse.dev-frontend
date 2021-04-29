@@ -1,7 +1,7 @@
 <template>
   <div class="center-v">
     <div class="container">
-      <h1 class="title-left">Graceful Shutdowns in Golang with signal.NotifyContext</h1>
+      <h1 class="title">Graceful Shutdowns in Golang with signal.NotifyContext</h1>
       <span><font-awesome-icon :icon="['far', 'calendar-alt']" /> February 25, 2021</span>
       <p>Graceful shutdowns are an important part of any application, especially if that application modifies state. Before you “pull the plug” you should be responding to those HTTP requests, finishing off database interactions and closing off anything that might be left otherwise hanging or orphaned.</p>
       <p>With the new signal.NotifyContext function that was released with Go 1.16, graceful shutdowns are easier than ever to add into your application.</p>
@@ -25,17 +25,22 @@
           on graceful shutdown with Go http servers and Kubernetes rolling updates. This is a great article showing a real world situation where this can be applied. Just note, this article was written pre Go 1.16 so the code snippets will show the older way of listening for signals from the operating system.
         </li>
       </ul>
+      <v-footer />
     </div>
   </div>
 </template>
 <script>
 import prism from "prismjs";
+import VFooter from "@/components/VFooter";
 import codeBlock from "@/assets/code-blocks/golang-signal-notify-context.go";
 
 require("prismjs/components/prism-go.js");
 
 export default {
   name: "GolangSignalNotifyContext",
+  components: {
+    VFooter,
+  },
   data() {
     return {
       codeBlock: codeBlock,
