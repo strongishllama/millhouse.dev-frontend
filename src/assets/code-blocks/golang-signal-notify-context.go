@@ -10,8 +10,7 @@ import (
 )
 
 var (
-	isShuttingDown bool
-	server         http.Server
+	server http.Server
 )
 
 func main() {
@@ -34,14 +33,9 @@ func main() {
 
 	// Listen for the interrupt signal.
 	<-ctx.Done()
-	// If the interrupt signal is received twice, exit immediately.
-	if isShuttingDown {
-		os.Exit(1)
-	}
 
 	// Restore default behavior on the interrupt signal and notify user of shutdown.
 	stop()
-	isShuttingDown = true
 	fmt.Println("shutting down gracefully, press Ctrl+C again to force")
 
 	// Perform application shutdown...
