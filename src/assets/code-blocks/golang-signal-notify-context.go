@@ -33,21 +33,19 @@ func main() {
 	go server.ListenAndServe()
 
 	// Listen for the interrupt signal.
-	select {
-	case <-ctx.Done():
-		// If the interrupt signal is received twice, exit immediately.
-		if isShuttingDown {
-			os.Exit(1)
-		}
+	<-ctx.Done()
+	// If the interrupt signal is received twice, exit immediately.
+	if isShuttingDown {
+		os.Exit(1)
+	}
 
-		// Restore default behavior on the interrupt signal and notify user of shutdown.
-		stop()
-		isShuttingDown = true
-		fmt.Println("shutting down gracefully, press Ctrl+C again to force")
+	// Restore default behavior on the interrupt signal and notify user of shutdown.
+	stop()
+	isShuttingDown = true
+	fmt.Println("shutting down gracefully, press Ctrl+C again to force")
 
-		// Perform application shutdown...
-		if err := server.Shutdown(context.Background()); err != nil {
-			fmt.Println(err)
-		}
+	// Perform application shutdown...
+	if err := server.Shutdown(context.Background()); err != nil {
+		fmt.Println(err)
 	}
 }
