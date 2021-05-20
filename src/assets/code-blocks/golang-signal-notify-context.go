@@ -31,8 +31,7 @@ func main() {
 	// Listen on a different Goroutine so the application doesn't stop here.
 	go server.ListenAndServe()
 
-	// Listen for the interrupt signal. If the interrupt signal is received
-	// twice, exit immediately.
+	// Listen for the interrupt signal.
 	<-ctx.Done()
 
 	// Restore default behavior on the interrupt signal and notify user of shutdown.
