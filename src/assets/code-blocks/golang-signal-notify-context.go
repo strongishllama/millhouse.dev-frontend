@@ -10,8 +10,7 @@ import (
 )
 
 var (
-	isShuttingDown bool
-	server         http.Server
+	server http.Server
 )
 
 func main() {
@@ -25,7 +24,7 @@ func main() {
 
 	// Perform application startup.
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		time.Sleep(time.Second * 5)
+		time.Sleep(time.Second * 10)
 		fmt.Fprint(w, "Hello world!")
 	})
 
@@ -33,21 +32,17 @@ func main() {
 	go server.ListenAndServe()
 
 	// Listen for the interrupt signal.
-	select {
-	case <-ctx.Done():
-		// If the interrupt signal is received twice, exit immediately.
-		if isShuttingDown {
-			os.Exit(1)
-		}
+	<-ctx.Done()
 
-		// Restore default behavior on the interrupt signal and notify user of shutdown.
-		stop()
-		isShuttingDown = true
-		fmt.Println("shutting down gracefully, press Ctrl+C again to force")
+	// Restore default behavior on the interrupt signal and notify user of shutdown.
+	stop()
+	fmt.Println("shutting down gracefully, press Ctrl+C again to force")
 
-		// Perform application shutdown...
-		if err := server.Shutdown(context.Background()); err != nil {
-			fmt.Println(err)
-		}
+	// Perform application shutdown with a maximum timeout of 5 seconds.
+	timeoutCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	if err := server.Shutdown(timeoutCtx); err != nil {
+		fmt.Println(err)
 	}
 }
