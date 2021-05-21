@@ -24,7 +24,7 @@ func main() {
 
 	// Perform application startup.
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		time.Sleep(time.Second * 5)
+		time.Sleep(time.Second * 10)
 		fmt.Fprint(w, "Hello world!")
 	})
 
@@ -38,8 +38,11 @@ func main() {
 	stop()
 	fmt.Println("shutting down gracefully, press Ctrl+C again to force")
 
-	// Perform application shutdown...
-	if err := server.Shutdown(context.Background()); err != nil {
+	// Perform application shutdown with a maximum timeout of 5 seconds.
+	timeoutCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	if err := server.Shutdown(timeoutCtx); err != nil {
 		fmt.Println(err)
 	}
 }
