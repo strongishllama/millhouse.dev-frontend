@@ -79,6 +79,14 @@ html {
   }
 }
 
+input {
+  border: 1px solid $cadet-blue;
+  border-radius: 2px;
+  box-sizing: border-box;
+  height: 33px;
+  padding-left: 0.5rem;
+}
+
 li {
   margin-bottom: 0.5rem;
 }
@@ -88,8 +96,8 @@ p {
   text-align: left;
 
   &.none{
-    margin-top: none;
-    margin-bottom: none;
+    margin-top: 0;
+    margin-bottom: 0;
   }
 }
 
