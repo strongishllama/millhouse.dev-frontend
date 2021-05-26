@@ -1,26 +1,62 @@
 <template>
   <div class="footer">
     <div class="container" style="margin-right: 0">
-      <h4>Like to get notified when I post new material?</h4>
-      <input type="email" placeholder="Email Address" />
-      <button @click="subscribe">Subscribe</button>
-      <vue-recaptcha></vue-recaptcha>
+      <h4 style="margin-bottom: 0.2rem">Like to get notified when I post new content?</h4>
+      <input type="email" placeholder="Email Address" v-model="emailAddress" />
+      <button @click="subscribe" :disabled="emailAddress === ''">
+        <span v-if="isLoading"><font-awesome-icon :icon="['fas', 'circle-notch']" /></span>
+        Subscribe
+      </button>
+      <div class="container" style="margin-left: 0; margin-top: 0.5rem; font-size: 0.8rem">
+        This site is protected by reCAPTCHA and the Google
+        <a class="link" href="https://policies.google.com/privacy">Privacy Policy</a>
+        and <a class="link" href="https://policies.google.com/terms">Terms of Service</a> apply.
+      </div>
     </div>
   </div>
+  <div id="toast">{{ toastMessage }}</div>
 </template>
 <script>
-import VueRecaptcha from "vue-recaptcha-v3";
+import axios from "axios";
 
 export default {
   name: "VFooter",
-  components: {
-    "vue-recaptcha": VueRecaptcha,
+  data: function () {
+    return {
+      isLoading: false,
+      toastMessage: "",
+      timeout: null,
+      emailAddress: "",
+    };
   },
   methods: {
     async subscribe() {
-      await this.$recaptchaLoaded();
-      const token = await this.$recaptcha("login");
-      console.log(token);
+      this.isLoading = true;
+
+      try {
+        await this.$recaptchaLoaded();
+        await axios.put(process.env.VUE_APP_API_BASE_URL + "/subscribe", {
+          emailAddress: this.emailAddress,
+          recaptchaChallengeToken: await this.$recaptcha("login"),
+        });
+      } catch (error) {
+        console.log(error);
+        this.setToastMessage("error", "Subscription failed");
+      }
+
+      this.setToastMessage("success", "Subscription successful");
+      this.isLoading = false;
+    },
+    async setToastMessage(type, toastMessage) {
+      clearTimeout(this.timeout);
+      this.toastMessage = toastMessage;
+
+      const toast = document.getElementById("toast");
+      toast.className = type + " show";
+
+      this.timeout = setTimeout(() => {
+        toast.className = toast.className.replace(type + " show", "");
+      }, 3000);
     },
   },
 };

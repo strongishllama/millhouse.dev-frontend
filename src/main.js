@@ -10,8 +10,18 @@ import "./assets/scss/app.scss";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faCalendarAlt } from "@fortawesome/free-regular-svg-icons";
 import { faGithub, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
+import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+library.add(faCalendarAlt, faCircleNotch, faGithub, faLinkedinIn);
 
-library.add(faCalendarAlt, faGithub, faLinkedinIn);
-
-createApp(App).use(store).use(router).use(VueReCaptcha, { siteKey: "6LetNsAaAAAAAJyNITv17967SdFEgc2LG2PkMHT2" }).component("font-awesome-icon", FontAwesomeIcon).mount("#app");
+createApp(App)
+  .use(store)
+  .use(router)
+  .use(VueReCaptcha, {
+    siteKey: "6LetNsAaAAAAAJyNITv17967SdFEgc2LG2PkMHT2",
+    loaderOptions: {
+      autoHideBadge: true,
+    },
+  })
+  .component("font-awesome-icon", FontAwesomeIcon)
+  .mount("#app");

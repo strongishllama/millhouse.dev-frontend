@@ -58,8 +58,12 @@ button {
     color: $white;
   }
 
-  &:hover {
+  &:hover:enabled {
     background-color: darken($pimary, 10%);
+  }
+
+  &:disabled {
+    opacity: 0.5;
   }
 }
 
@@ -150,6 +154,79 @@ ul {
   }
 }
 
+#toast {
+  $offset: 0px;
+
+  bottom: $offset;
+  color: $black;
+  left: 0;
+  min-width: 250px;
+  padding: 16px;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  visibility: hidden;
+  z-index: 1;
+
+  &.error {
+    background-color: $red-munsell;
+  }
+
+  &.success {
+    background-color: $green-blue-crayola;
+  }
+
+  &.show {
+    @-webkit-keyframes fadein {
+      from {
+        bottom: 0;
+        opacity: 0;
+      }
+      to {
+        bottom: $offset;
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadein {
+      from {
+        bottom: 0;
+        opacity: 0;
+      }
+      to {
+        bottom: $offset;
+        opacity: 1;
+      }
+    }
+
+    @-webkit-keyframes fadeout {
+      from {
+        bottom: $offset;
+        opacity: 1;
+      }
+      to {
+        bottom: 0;
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeout {
+      from {
+        bottom: $offset;
+        opacity: 1;
+      }
+      to {
+        bottom: 0;
+        opacity: 0;
+      }
+    }
+
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  }
+}
+
 // Generic classes.
 .center-vh {
   align-items: center;
@@ -218,4 +295,21 @@ ul {
 
 .post-title {
   text-align: left;
+}
+
+// FontAwesome overrides.
+.fa-circle-notch {
+  @keyframes spinner {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @-webkit-keyframes spinner {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  animation: spinner 1.2s linear infinite;
 }
