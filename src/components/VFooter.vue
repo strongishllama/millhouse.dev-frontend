@@ -35,15 +35,22 @@ export default {
 
       try {
         await this.$recaptchaLoaded();
-        await axios.put(process.env.VUE_APP_API_BASE_URL + "/subscribe", {
+        const response = await axios.put(process.env.VUE_APP_API_BASE_URL + "/subscribe", {
           emailAddress: this.emailAddress,
           recaptchaChallengeToken: await this.$recaptcha("login"),
         });
+
+        if (response.status !== 200) {
+          throw Error("Error: Unexpected status code returned: " + response.status);
+        }
       } catch (error) {
         console.log(error);
         this.setToastMessage("error", "Subscription failed");
+        this.isLoading = false;
+        return;
       }
 
+      this.emailAddress = "";
       this.setToastMessage("success", "Subscription successful");
       this.isLoading = false;
     },
