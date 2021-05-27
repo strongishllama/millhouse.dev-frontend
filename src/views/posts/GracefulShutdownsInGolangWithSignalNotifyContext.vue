@@ -24,9 +24,7 @@
           <a class="link" href="https://medium.com/over-engineering/graceful-shutdown-with-go-http-servers-and-kubernetes-rolling-updates-6697e7db17cf" target="_blank"> article </a>
           on graceful shutdown with Go http servers and Kubernetes rolling updates. This is a great article showing a real world situation where this can be applied. Just note, this article was written pre Go 1.16 so the code snippets will show the older way of listening for signals from the operating system.
         </li>
-        <li>
-          Some insightful <a class="link" href="https://www.reddit.com/r/golang/comments/ngx1mu/graceful_shutdowns_in_golang_with" target="_blank">comments and feedback</a> about this post from some kind Gophers over on <a class="link" href="https://www.reddit.com/r/golang" target="_blank">r/golang</a>.
-        </li>
+        <li>Some insightful <a class="link" href="https://www.reddit.com/r/golang/comments/ngx1mu/graceful_shutdowns_in_golang_with" target="_blank">comments and feedback</a> about this post from some kind Gophers over on <a class="link" href="https://www.reddit.com/r/golang" target="_blank">r/golang</a>.</li>
       </ul>
       <v-footer />
     </div>
