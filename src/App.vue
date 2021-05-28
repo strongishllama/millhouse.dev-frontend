@@ -17,7 +17,6 @@ export default {
 
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
       document.documentElement.classList.toggle("dark");
-      // localStorage.setItem("theme", e.matches ? "dark" : "light")
     });
   },
 };
