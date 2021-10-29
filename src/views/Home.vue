@@ -7,7 +7,7 @@
       <a class="icon" href="https://github.com/strongishllama" target="_blank" rel="noopener" aria-label="GitHub">
         <font-awesome-icon :icon="['fab', 'github']" size="2x" />
       </a>
-      <a class="icon" href="https://www.linkedin.com/in/taliesin-millhouse-00001" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <a class="icon" href="https://www.linkedin.com/in/tmillhouse" target="_blank" rel="noopener" aria-label="LinkedIn">
         <font-awesome-icon :icon="['fab', 'linkedin-in']" size="2x" />
       </a>
     </div>
